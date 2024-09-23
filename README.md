@@ -23,6 +23,13 @@ Patched VRChat SDK for improve experience (quality of life)
 
 NB: `YourProjectFolder/Packages/vpm-manifest.json` will not update (when you overwrite SDK that version differents, e.x. 3.6.1 -> 3.7.0), manually edit the json file and change the version number to fix.
 
+# Self-Hosting
+
+You can self-hosting own reverse-proxy server.
+
+Soon i write it.
+
+
 # FAQ
 
 [FAQ](https://github.com/extremeblackliu/VRCSDKImp/blob/main/faq.md)
