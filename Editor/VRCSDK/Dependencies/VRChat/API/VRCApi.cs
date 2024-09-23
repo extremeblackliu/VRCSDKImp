@@ -99,7 +99,8 @@ namespace VRC.SDKBase.Editor.Api {
                 var handler = new HttpClientHandler
                 {
                     CookieContainer = cookies,
-                    UseProxy = false
+                    UseProxy = true,
+					Proxy = WebRequest.GetSystemWebProxy(),
                 };
                 var client = new HttpClient(handler);
                 foreach (var header in Headers)
