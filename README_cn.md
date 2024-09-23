@@ -1,7 +1,8 @@
+[![Github All Releases](https://img.shields.io/github/downloads/extremeblackliu/VRCSDKImp/total.svg)]()
+
 # VRCSDKImp
 
 通过修补一系列SDK的功能来改进编辑器内的体验（生活质量改进）
-
 
 # 功能
 
@@ -20,7 +21,6 @@
 
 注: `YourProjectFolder/Packages/vpm-manifest.json` 不会更新 （当你覆盖不同的SDK版本时，像是 3.6.1 -> 3.7.0 ），手动编辑 json 文件然后修改为相同的版本号来修改这个问题。
 
-
 # 常见问题
 
-[点我](https://github.com/extremeblackliu/VRCSDKImp/blob/main/faq_cn.md)
+[点我](https://github.com/extremeblackliu/VRCSDKImp/blob/main/README.md)

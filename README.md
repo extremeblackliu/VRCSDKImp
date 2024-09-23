@@ -1,3 +1,5 @@
+[![Github All Releases](https://img.shields.io/github/downloads/extremeblackliu/VRCSDKImp/total.svg)]()
+
 # VRCSDKImp
 
 Patched VRChat SDK for improve experience (quality of life)
@@ -20,7 +22,6 @@ Patched VRChat SDK for improve experience (quality of life)
 5. Profit.
 
 NB: `YourProjectFolder/Packages/vpm-manifest.json` will not update (when you overwrite SDK that version differents, e.x. 3.6.1 -> 3.7.0), manually edit the json file and change the version number to fix.
-
 
 # FAQ
 
