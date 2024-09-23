@@ -314,8 +314,6 @@ public partial class VRCSdkControlPanel : EditorWindow, IVRCSdkPanelApi
             }
         
             EditorGUILayout.Space();
-        
-            EnvConfig.SetActiveSDKDefines();
             
             GUILayout.EndVertical();
             GUILayout.FlexibleSpace();
@@ -337,6 +335,8 @@ public partial class VRCSdkControlPanel : EditorWindow, IVRCSdkPanelApi
                     break;
             }
         }));
+        
+        EnvConfig.SetActiveSDKDefines();
     }
 
     private void CreateTabs()

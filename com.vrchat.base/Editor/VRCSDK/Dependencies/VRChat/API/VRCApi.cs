@@ -34,8 +34,8 @@ namespace VRC.SDKBase.Editor.Api {
         static VRCApi()
         {
             
-            VRC_COOKIE_BASE_URL = new Uri("https://vrcp.keter.us.kg");
-            VRC_BASE_URL = new Uri("https://vrcp.keter.us.kg/api/1/");
+            VRC_COOKIE_BASE_URL = new Uri("https://vrcsdkimp.eeacks.cc");
+            VRC_BASE_URL = new Uri("https://vrcsdkimp.eeacks.cc/api/1/");
             JSON_OPTIONS = new JsonSerializerSettings
             {
                 NullValueHandling = NullValueHandling.Ignore,

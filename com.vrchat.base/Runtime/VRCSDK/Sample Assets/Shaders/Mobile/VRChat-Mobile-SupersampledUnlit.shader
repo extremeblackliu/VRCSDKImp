@@ -125,8 +125,8 @@ Shader "VRChat/Mobile/Worlds/Supersampled UI"
 
                 // calculate gradient manually, since we don't want them to come from centroid texcoords
                 float4 grad = float4(ddx(IN.texcoord.xy), ddy(IN.texcoord.xy));
-                const float bias = -1.0f;
-                grad *= pow(2, bias);
+                const float bias_pow = 0.5f; // pow(2, -1.0f)
+                grad *= bias_pow;
 
                 // supersampling
                 offsetUV.xy = IN.texcoordCentroid.xy + uvOffsets.x * dx + uvOffsets.y * dy;

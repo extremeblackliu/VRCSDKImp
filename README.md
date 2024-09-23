@@ -6,8 +6,9 @@ Patched VRChat SDK for improve experience (quality of life)
 # Features
 
 * Proxy support (Follow system proxy)
-* API Redirection  `api.vrchat.cloud` -> `vrcp.keter.us.kg`
+* API Redirection  `api.vrchat.cloud` -> `vrcsdkimp.eeacks.cc`
 
+``vrcp.keter.us.kg`` is deprecated and will be unavailable in months, please upgrade to latest patched sdk or manually patch to latest proxy domain.
 
 # Start
 

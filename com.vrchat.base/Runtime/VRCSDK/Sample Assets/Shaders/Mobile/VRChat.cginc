@@ -345,7 +345,7 @@ inline UnityGI UnityGI_BaseVRC(UnityGIInput data, half occlusion, half3 normalWo
                 // The brightness vs ground truth (a reflection probe) is too low though... closest we can get appears to be 
                 // a dimensionless version, shEvaluateDiffuseL1Geometrics but applied to just the ratio.
                 half energyFactor = shEvaluateDiffuseL1Normalized(dot(L0rgb, 1), L1, normalWorld);
-                half3 sh = L0rgb + mul(dominantDir, L1rgb) * energyFactor;
+                half3 sh = (L0rgb + mul(dominantDir, L1rgb)) * energyFactor;
         
                 o_gi.indirect.specular = max(specularTerm * sh, 0.0); 
             }
