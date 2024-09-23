@@ -23,4 +23,4 @@
 
 # 常见问题
 
-[点我](https://github.com/extremeblackliu/VRCSDKImp/blob/main/README.md)
+[点我](https://github.com/extremeblackliu/VRCSDKImp/blob/main/faq_cn.md)
