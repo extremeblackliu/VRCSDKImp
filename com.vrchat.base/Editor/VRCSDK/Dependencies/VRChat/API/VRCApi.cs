@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -92,16 +92,25 @@ namespace VRC.SDKBase.Editor.Api {
 
         }
         
-        private static HttpClient GetClient(Uri url)
+        private static HttpClient GetClient(Uri url, bool pNotUseProxy = false)
         {
             {
                 var cookies = GetCookies(url);
-                var handler = new HttpClientHandler
-                {
-                    CookieContainer = cookies,
-                    UseProxy = true,
+				var handler = new HttpClientHandler
+				{
+					CookieContainer = cookies,
+					UseProxy = true,
 					Proxy = WebRequest.GetSystemWebProxy(),
-                };
+				};
+				if(pNotUseProxy)
+				{
+					handler = new HttpClientHandler
+					{
+						CookieContainer = cookies,
+						UseProxy = false
+					};
+				}
+                
                 var client = new HttpClient(handler);
                 foreach (var header in Headers)
                 {
@@ -232,7 +241,7 @@ namespace VRC.SDKBase.Editor.Api {
             HttpResponseMessage result;
             try
             {
-                var client = GetClient(request.RequestUri);
+                var client = GetClient(request.RequestUri, request.RequestUri.Host == "s3.amazonaws.com");
                 client.Timeout = TimeSpan.FromSeconds(timeout);
                 var sendTask = client.SendAsync(request, cancellationToken);
 
