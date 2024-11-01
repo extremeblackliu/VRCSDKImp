@@ -43,4 +43,4 @@
 
 ## 你会偷我的数据吗？
 
-不，我还鼓励你搭建一个自己的。
+不，我还鼓励你搭建一个自己的。[教程](https://github.com/extremeblackliu/VRCSDKImp/blob/main/create_own_proxy.md)
