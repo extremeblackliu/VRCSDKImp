@@ -4,8 +4,6 @@
 
 Patched VRChat SDK for improve experience (quality of life)
 
-[中文说明戳我](https://github.com/extremeblackliu/VRCSDKImp/blob/main/README_cn.md)
-
 # Features
 
 * Proxy support (Follow system proxy)
