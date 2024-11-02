@@ -95,7 +95,7 @@ export default {
 
 ![](https://i0.hdslb.com/bfs/new_dyn/9f77a445e57dde803490abb3ba48f4ed182460046.png)
 
-确保你已经从视频中的简介下载了打了补丁的SDK，解压到任意位置
+确保你已经从 `Release` 中下载了打了补丁的SDK，解压到任意位置
 
 然后导航到 `.\com.vrchat.base\Runtime\VRCSDK\Plugins`
 
