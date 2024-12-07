@@ -67,6 +67,11 @@ source1 = source1.replace(
 source1 = source1.replace("var client = GetClient(request.RequestUri);", `var client = GetClient(request.RequestUri, request.RequestUri.Host == "s3.amazonaws.com");`);
 fs.writeFileSync("./Packages/com.vrchat.base/Editor/VRCSDK/Dependencies/VRChat/API/VRCApi.cs", source1);
 
+console.log("VRCApi.cs replacement done!");
+
+
+// Binary Patching
+
 // api.vrchat.cloud
 const URL_PATTERN =   "\x61\x00\x70\x00\x69\x00\x2E\x00\x76\x00\x72\x00\x63\x00\x68\x00\x61\x00\x74\x00\x2E\x00\x63\x00\x6C\x00\x6F\x00\x75\x00\x64\x00";
 
