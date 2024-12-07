@@ -7,7 +7,7 @@
 # 功能
 
 * 支持代理 (跟随系统代理)
-* API重定向  `api.vrchat.cloud` -> `vrcsdkimp.eeacks.cc`
+* API重定向  `api.vrchat.cloud` -> `vrcsdk.eeacks.cc`
 
 ``vrcp.keter.us.kg`` 或者 `vrcproxy.keter.us.kg` 已经弃用，几个月后将会不再可用，请及时升级到最新版的 VRCSDKImp 版本或者手动修补域名。
 
@@ -25,7 +25,7 @@
 
 ## 不会自动登录、登录页面卡住了
 
-目前这个问题还没法确定源头，但是可以解决的途径是：访问一次 `vrcsdkimp.eeacks.cc` 之后重载SDK（VRCSDK 的 "Reload SDK" 功能），在几分钟内应该会恢复正常。
+目前这个问题还没法确定源头，但是可以解决的途径是：访问一次 `vrcsdk.eeacks.cc` 之后重载SDK（VRCSDK 的 "Reload SDK" 功能），在几分钟内应该会恢复正常。
 
 该问题不常见，但是一旦出现可以这样解决。
 
