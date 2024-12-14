@@ -617,6 +617,159 @@ namespace VRC.SDKBase.Validation.Performance
 
                     break;
                 }
+                case AvatarPerformanceCategory.DynamicBoneComponentCount:
+                {
+                    switch(rating)
+                    {
+                        case PerformanceRating.Excellent:
+                        case PerformanceRating.Good:
+                        {
+                            displayLevel = PerformanceInfoDisplayLevel.Verbose;
+                            text = string.Format("Dynamic Bone Components: {0}", perfStats.dynamicBone?.componentCount);
+                            break;
+                        }
+                        case PerformanceRating.Medium:
+                        case PerformanceRating.Poor:
+                        {
+                            displayLevel = PerformanceInfoDisplayLevel.Warning;
+                            text = string.Format(
+                                "Dynamic Bone Components: {0} (Recommended: {1}) - Reduce number of DynamicBone components for better performance.",
+                                perfStats.dynamicBone?.componentCount,
+                                AvatarPerformanceStats.GetStatLevelForRating(PerformanceRating.Excellent, isMobilePlatform).dynamicBone.componentCount);
+
+                            break;
+                        }
+                        case PerformanceRating.VeryPoor:
+                        {
+                            displayLevel = PerformanceInfoDisplayLevel.Warning;
+                            text = string.Format(
+                                "Dynamic Bone Components: {0} (Maximum: {1}, Recommended: {2}) - This avatar has too many DynamicBone components." +
+                                " Reduce number of DynamicBone components for better performance.",
+                                perfStats.dynamicBone?.componentCount,
+                                AvatarPerformanceStats.GetStatLevelForRating(PerformanceRating.Poor, isMobilePlatform).dynamicBone.componentCount,
+                                AvatarPerformanceStats.GetStatLevelForRating(PerformanceRating.Excellent, isMobilePlatform).dynamicBone.componentCount);
+
+                            break;
+                        }
+                    }
+
+                    break;
+                }
+                case AvatarPerformanceCategory.DynamicBoneSimulatedBoneCount:
+                {
+                    switch(rating)
+                    {
+                        case PerformanceRating.Excellent:
+                        case PerformanceRating.Good:
+                        {
+                            displayLevel = PerformanceInfoDisplayLevel.Verbose;
+                            text = string.Format("Dynamic Bone Simulated Bone Count: {0}", perfStats.dynamicBone?.transformCount);
+                            break;
+                        }
+                        case PerformanceRating.Medium:
+                        case PerformanceRating.Poor:
+                        {
+                            displayLevel = PerformanceInfoDisplayLevel.Warning;
+                            text = string.Format(
+                                "Dynamic Bone Simulated Bone Count: {0} (Recommended: {1}) - " +
+                                "Reduce number of transforms in hierarchy under DynamicBone components, or set EndLength or EndOffset to zero to reduce the number of simulated bones.",
+                                perfStats.dynamicBone?.transformCount,
+                                AvatarPerformanceStats.GetStatLevelForRating(PerformanceRating.Excellent, isMobilePlatform).dynamicBone.transformCount);
+
+                            break;
+                        }
+                        case PerformanceRating.VeryPoor:
+                        {
+                            displayLevel = PerformanceInfoDisplayLevel.Warning;
+                            text = string.Format(
+                                "Dynamic Bone Simulated Bone Count: {0} (Maximum: {1}, Recommended: {2}) - This avatar has too many bones simulated by DynamicBone." +
+                                " Reduce number of transforms in hierarchy under DynamicBone components, or set EndLength or EndOffset to zero to reduce the number of simulated bones.",
+                                perfStats.dynamicBone?.transformCount,
+                                AvatarPerformanceStats.GetStatLevelForRating(PerformanceRating.Poor, isMobilePlatform).dynamicBone.transformCount,
+                                AvatarPerformanceStats.GetStatLevelForRating(PerformanceRating.Excellent, isMobilePlatform).dynamicBone.transformCount);
+
+                            break;
+                        }
+                    }
+
+                    break;
+                }
+                case AvatarPerformanceCategory.DynamicBoneColliderCount:
+                {
+                    switch(rating)
+                    {
+                        case PerformanceRating.Excellent:
+                        case PerformanceRating.Good:
+                        {
+                            displayLevel = PerformanceInfoDisplayLevel.Verbose;
+                            text = string.Format("Dynamic Bone Collider Count: {0}", perfStats.dynamicBone?.colliderCount);
+                            break;
+                        }
+                        case PerformanceRating.Medium:
+                        case PerformanceRating.Poor:
+                        {
+                            displayLevel = PerformanceInfoDisplayLevel.Warning;
+                            text = string.Format(
+                                "Dynamic Bone Collider Count: {0} (Recommended: {1}) - Avoid use of DynamicBoneColliders for better performance.",
+                                perfStats.dynamicBone?.colliderCount,
+                                AvatarPerformanceStats.GetStatLevelForRating(PerformanceRating.Excellent, isMobilePlatform).dynamicBone.colliderCount);
+
+                            break;
+                        }
+                        case PerformanceRating.VeryPoor:
+                        {
+                            displayLevel = PerformanceInfoDisplayLevel.Warning;
+                            text = string.Format(
+                                "Dynamic Bone Collider Count: {0} (Maximum: {1}, Recommended: {2}) - This avatar has too many DynamicBoneColliders." +
+                                " Avoid use of DynamicBoneColliders for better performance.",
+                                perfStats.dynamicBone?.colliderCount,
+                                AvatarPerformanceStats.GetStatLevelForRating(PerformanceRating.Poor, isMobilePlatform).dynamicBone.colliderCount,
+                                AvatarPerformanceStats.GetStatLevelForRating(PerformanceRating.Excellent, isMobilePlatform).dynamicBone.colliderCount);
+
+                            break;
+                        }
+                    }
+
+                    break;
+                }
+                case AvatarPerformanceCategory.DynamicBoneCollisionCheckCount:
+                {
+                    switch(rating)
+                    {
+                        case PerformanceRating.Excellent:
+                        case PerformanceRating.Good:
+                        {
+                            displayLevel = PerformanceInfoDisplayLevel.Verbose;
+                            text = string.Format("Dynamic Bone Collision Check Count: {0}", perfStats.dynamicBone?.collisionCheckCount);
+                            break;
+                        }
+                        case PerformanceRating.Medium:
+                        case PerformanceRating.Poor:
+                        {
+                            displayLevel = PerformanceInfoDisplayLevel.Warning;
+                            text = string.Format(
+                                "Dynamic Bone Collision Check Count: {0} (Recommended: {1}) - Avoid use of DynamicBoneColliders for better performance.",
+                                perfStats.dynamicBone?.collisionCheckCount,
+                                AvatarPerformanceStats.GetStatLevelForRating(PerformanceRating.Excellent, isMobilePlatform).dynamicBone.collisionCheckCount);
+
+                            break;
+                        }
+                        case PerformanceRating.VeryPoor:
+                        {
+                            displayLevel = PerformanceInfoDisplayLevel.Warning;
+                            text = string.Format(
+                                "Dynamic Bone Collision Check Count: {0} (Maximum: {1}, Recommended: {2}) - This avatar has too many DynamicBoneColliders." +
+                                " Avoid use of DynamicBoneColliders for better performance.",
+                                perfStats.dynamicBone?.collisionCheckCount,
+                                AvatarPerformanceStats.GetStatLevelForRating(PerformanceRating.Poor, isMobilePlatform).dynamicBone.collisionCheckCount,
+                                AvatarPerformanceStats.GetStatLevelForRating(PerformanceRating.Excellent, isMobilePlatform).dynamicBone.collisionCheckCount);
+
+                            break;
+                        }
+                    }
+
+                    break;
+                }
                 case AvatarPerformanceCategory.PhysBoneComponentCount:
                 {
                     //Max limits
@@ -641,7 +794,7 @@ namespace VRC.SDKBase.Validation.Performance
                         {
                             displayLevel = PerformanceInfoDisplayLevel.Warning;
                             text = string.Format(
-                                "Phys Bone Components: {0} (Recommended: {1}) - Reduce the number of VRCPhysBone components for better performance.",
+                                "Phys Bone Components: {0} (Recommended: {1}) - Reduce number of VRCPhysBone components for better performance.",
                                 perfStats.physBone?.componentCount,
                                 AvatarPerformanceStats.GetStatLevelForRating(PerformanceRating.Excellent, isMobilePlatform).physBone.componentCount);
 
@@ -656,7 +809,7 @@ namespace VRC.SDKBase.Validation.Performance
                                 perfStats.physBone?.componentCount,
                                 AvatarPerformanceStats.GetStatLevelForRating(PerformanceRating.Poor, isMobilePlatform).physBone.componentCount,
                                 AvatarPerformanceStats.GetStatLevelForRating(PerformanceRating.Excellent, isMobilePlatform).physBone.componentCount,
-                                (isMobilePlatform) ? "All PhysBone components will be removed at runtime." : "Reduce the number of VRCPhysBone components for better performance.");
+                                (isMobilePlatform) ? "All PhysBone components will be removed at runtime." : "Reduce number of VRCPhysBone components for better performance.");
 
                             break;
                         }
@@ -728,7 +881,7 @@ namespace VRC.SDKBase.Validation.Performance
                         {
                             displayLevel = PerformanceInfoDisplayLevel.Warning;
                             text = string.Format(
-                                "Phys Bone Collider Count: {0} (Recommended: {1}) - Reduce the number of VRCPhysBoneColliders for better performance.",
+                                "Phys Bone Collider Count: {0} (Recommended: {1}) - Reduce the usage of VRCPhysBoneColliders for better performance.",
                                 perfStats.physBone?.colliderCount,
                                 AvatarPerformanceStats.GetStatLevelForRating(PerformanceRating.Excellent, isMobilePlatform).physBone.colliderCount);
 
@@ -740,10 +893,10 @@ namespace VRC.SDKBase.Validation.Performance
                             text = string.Format(
                                 "Phys Bone Collider Count: {0} (Maximum: {1}, Recommended: {2}) - This avatar has too many VRCPhysBoneColliders." +
                                 " {3}",
-                                perfStats.physBone?.colliderCount,
-                                AvatarPerformanceStats.GetStatLevelForRating(PerformanceRating.Poor, isMobilePlatform).physBone.colliderCount,
-                                AvatarPerformanceStats.GetStatLevelForRating(PerformanceRating.Excellent, isMobilePlatform).physBone.colliderCount,
-                                (isMobilePlatform) ? "All PhysBone colliders will be removed at runtime." : "Reduce the number of VRCPhysBoneColliders for better performance.");
+                                perfStats.dynamicBone?.colliderCount,
+                                AvatarPerformanceStats.GetStatLevelForRating(PerformanceRating.Poor, isMobilePlatform).dynamicBone.colliderCount,
+                                AvatarPerformanceStats.GetStatLevelForRating(PerformanceRating.Excellent, isMobilePlatform).dynamicBone.colliderCount,
+                                (isMobilePlatform) ? "All PhysBone colliders will be removed at runtime." : "Reduce number of VRCPhysBone colliders for better performance.");
 
                             break;
                         }
@@ -767,7 +920,7 @@ namespace VRC.SDKBase.Validation.Performance
                         {
                             displayLevel = PerformanceInfoDisplayLevel.Warning;
                             text = string.Format(
-                                "Phys Bone Collision Check Count: {0} (Recommended: {1}) - Reduce the number of VRCPhysBoneColliders for better performance.",
+                                "Phys Bone Collision Check Count: {0} (Recommended: {1}) - Reduce the usage of VRCPhysBoneColliders for better performance.",
                                 perfStats.physBone?.collisionCheckCount,
                                 AvatarPerformanceStats.GetStatLevelForRating(PerformanceRating.Excellent, isMobilePlatform).physBone.collisionCheckCount);
 
@@ -782,7 +935,7 @@ namespace VRC.SDKBase.Validation.Performance
                                 perfStats.physBone?.collisionCheckCount,
                                 AvatarPerformanceStats.GetStatLevelForRating(PerformanceRating.Poor, isMobilePlatform).physBone.collisionCheckCount,
                                 AvatarPerformanceStats.GetStatLevelForRating(PerformanceRating.Excellent, isMobilePlatform).physBone.collisionCheckCount,
-                                (isMobilePlatform) ? "All PhysBone colliders will be removed at runtime." : "Reduce the number of VRCPhysBoneColliders for better performance.");
+                                (isMobilePlatform) ? "All PhysBone colliders will be removed at runtime." : "Reduce number of VRCPhysBone colliders for better performance.");
 
                             break;
                         }
@@ -814,7 +967,7 @@ namespace VRC.SDKBase.Validation.Performance
                         {
                             displayLevel = PerformanceInfoDisplayLevel.Warning;
                             text = string.Format(
-                                "Contact Component Count: {0} (Recommended: {1}) - Reduce the number of VRCContact components for optimal performance.",
+                                "Contact Component Count: {0} (Recommended: {1}) - Reduce the usage of VRCContact components for optimal performance.",
                                 perfStats.contactCount,
                                 AvatarPerformanceStats.GetStatLevelForRating(PerformanceRating.Excellent, isMobilePlatform).contactCount);
 
@@ -828,91 +981,7 @@ namespace VRC.SDKBase.Validation.Performance
                                 perfStats.contactCount,
                                 AvatarPerformanceStats.GetStatLevelForRating(PerformanceRating.Poor, isMobilePlatform).contactCount,
                                 AvatarPerformanceStats.GetStatLevelForRating(PerformanceRating.Excellent, isMobilePlatform).contactCount,
-                                (isMobilePlatform) ? "All VRCContact components will be removed at runtime." : "Reduce the number of VRCContact components for optimal performance.");
-
-                            break;
-                        }
-                    }
-
-                    break;
-                }
-                case AvatarPerformanceCategory.ConstraintsCount:
-                {
-                    //Max limits
-                    if(perfStats.constraintsCount > AvatarValidation.MAX_AVD_CONSTRAINTS_PER_AVATAR)
-                    {
-                        displayLevel = PerformanceInfoDisplayLevel.Error;
-                        text = $"Constraint Component Count: {perfStats.constraintsCount} - Avatar exceeds the maximum limit ({AvatarValidation.MAX_AVD_CONSTRAINTS_PER_AVATAR}) of this component type.  Reduce the number of constraint components on this avatar.";
-                        break;
-                    }
-
-                    switch(rating)
-                    {
-                        case PerformanceRating.Excellent:
-                        case PerformanceRating.Good:
-                        {
-                            displayLevel = PerformanceInfoDisplayLevel.Verbose;
-                            text = string.Format("Constraint Component Count: {0}", perfStats.constraintsCount);
-                            break;
-                        }
-                        case PerformanceRating.Medium:
-                        case PerformanceRating.Poor:
-                        {
-                            displayLevel = PerformanceInfoDisplayLevel.Warning;
-                            text = string.Format(
-                                "Constraint Component Count: {0} (Recommended: {1}) - Reduce the number of constraint components for optimal performance.",
-                                perfStats.constraintsCount,
-                                AvatarPerformanceStats.GetStatLevelForRating(PerformanceRating.Excellent, isMobilePlatform).constraintsCount);
-
-                            break;
-                        }
-                        case PerformanceRating.VeryPoor:
-                        {
-                            displayLevel = isMobilePlatform ? PerformanceInfoDisplayLevel.Error : PerformanceInfoDisplayLevel.Warning;
-                            text = string.Format(
-                                "Constraint Component Count: {0} (Maximum: {1}, Recommended: {2}) - This avatar has too many constraint components. {3}",
-                                perfStats.constraintsCount,
-                                AvatarPerformanceStats.GetStatLevelForRating(PerformanceRating.Poor, isMobilePlatform).constraintsCount,
-                                AvatarPerformanceStats.GetStatLevelForRating(PerformanceRating.Excellent, isMobilePlatform).constraintsCount,
-                                (isMobilePlatform) ? "All constraint components will be removed at runtime." : "Reduce the number of constraint components for optimal performance.");
-
-                            break;
-                        }
-                    }
-
-                    break;
-                }
-                case AvatarPerformanceCategory.ConstraintDepth:
-                {
-                    switch(rating)
-                    {
-                        case PerformanceRating.Excellent:
-                        case PerformanceRating.Good:
-                        {
-                            displayLevel = PerformanceInfoDisplayLevel.Verbose;
-                            text = string.Format("Constraint Depth: {0}", perfStats.constraintDepth);
-                            break;
-                        }
-                        case PerformanceRating.Medium:
-                        case PerformanceRating.Poor:
-                        {
-                            displayLevel = PerformanceInfoDisplayLevel.Warning;
-                            text = string.Format(
-                                "Constraint Depth: {0} (Recommended: {1}) - Reorganize your constraints to reduce dependencies for optimal performance.",
-                                perfStats.constraintDepth,
-                                AvatarPerformanceStats.GetStatLevelForRating(PerformanceRating.Excellent, isMobilePlatform).constraintDepth);
-
-                            break;
-                        }
-                        case PerformanceRating.VeryPoor:
-                        {
-                            displayLevel = isMobilePlatform ? PerformanceInfoDisplayLevel.Error : PerformanceInfoDisplayLevel.Warning;
-                            text = string.Format(
-                                "Constraint Depth: {0} (Maximum: {1}, Recommended: {2}) - This avatar's constraints are nested too deeply. {3}",
-                                perfStats.constraintDepth,
-                                AvatarPerformanceStats.GetStatLevelForRating(PerformanceRating.Poor, isMobilePlatform).constraintDepth,
-                                AvatarPerformanceStats.GetStatLevelForRating(PerformanceRating.Excellent, isMobilePlatform).constraintDepth,
-                                (isMobilePlatform) ? "All VRCConstraint components will be removed at runtime." : "Reorganize your constraints to reduce dependencies for optimal performance.");
+                                (isMobilePlatform) ? "All VRCContact components will be removed at runtime." : "Reduce number of VRCContact components for optimal performance.");
 
                             break;
                         }

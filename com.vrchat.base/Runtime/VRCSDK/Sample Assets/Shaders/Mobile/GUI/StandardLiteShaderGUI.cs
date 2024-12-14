@@ -2,22 +2,13 @@
 // Unity built-in shader source. Copyright (c) 2016 Unity Technologies. MIT license (see license.txt)
 
 using System;
-using System.IO;
 using UnityEngine;
-using System.Reflection;
 
 namespace UnityEditor
 {
 #if UNITY_EDITOR
     internal class StandardLiteShaderGUI: ShaderGUI
     {
-        public enum LightmapType
-        {
-            Default,
-            MonoSH,
-            MonoSHNoSpecular
-        }
-
         private static class Styles
         {
             public static GUIContent uvSetLabel = EditorGUIUtility.TrTextContent("UV Set");
@@ -25,7 +16,7 @@ namespace UnityEditor
             public static GUIContent albedoText = EditorGUIUtility.TrTextContent("Albedo", "Albedo (RGB) and Transparency (A)");
             public static GUIContent metallicMapText = EditorGUIUtility.TrTextContent("Metallic", "Metallic (R) and Smoothness (A)");
             public static GUIContent smoothnessText = EditorGUIUtility.TrTextContent("Smoothness", "Smoothness value");
-            public static GUIContent highlightsText = EditorGUIUtility.TrTextContent("Specular Lightprobe Hack", "Use Lightprobes as lights for specularity");
+            public static GUIContent highlightsText = EditorGUIUtility.TrTextContent("Specular Highlights", "Specular Highlights");
             public static GUIContent reflectionsText = EditorGUIUtility.TrTextContent("Reflections", "Glossy Reflections");
             public static GUIContent normalMapText = EditorGUIUtility.TrTextContent("Normal Map", "Normal Map");
             public static GUIContent occlusionText = EditorGUIUtility.TrTextContent("Occlusion", "Occlusion (G)");
@@ -33,10 +24,6 @@ namespace UnityEditor
             public static GUIContent detailMaskText = EditorGUIUtility.TrTextContent("Detail Mask", "Mask for Secondary Maps (A)");
             public static GUIContent detailAlbedoText = EditorGUIUtility.TrTextContent("Detail Albedo x2", "Albedo (RGB) multiplied by 2");
             public static GUIContent detailNormalMapText = EditorGUIUtility.TrTextContent("Normal Map", "Normal Map");
-            public static GUIContent lightmapTypeText = EditorGUIUtility.TrTextContent("Lightmap Type", "Lightmap Type");
-            public static GUIContent specularAAText = EditorGUIUtility.TrTextContent("Specular Anti-Aliasing", "Screenspace Specular Anti-Aliasing");
-            public static GUIContent specularAAVarianceText = EditorGUIUtility.TrTextContent("Variance", "Screenspace Specular Anti-Aliasing Variance");
-            public static GUIContent specularAAThresholdText = EditorGUIUtility.TrTextContent("Threshold", "Screenspace Specular Anti-Aliasing Threshold");
 
             public static string primaryMapsText = "Main Maps";
             public static string secondaryMapsText = "Secondary Maps";
@@ -63,10 +50,6 @@ namespace UnityEditor
         MaterialProperty detailNormalMapScale = null;
         MaterialProperty detailNormalMap = null;
         MaterialProperty uvSetSecondary = null;
-        MaterialProperty lightmapType = null;
-        MaterialProperty specularAA = null;
-        MaterialProperty specularAAVariance = null;
-        MaterialProperty specularAAThreshold = null;
 
         MaterialEditor m_MaterialEditor;
 
@@ -92,10 +75,6 @@ namespace UnityEditor
             detailNormalMapScale = FindProperty("_DetailNormalMapScale", props);
             detailNormalMap = FindProperty("_DetailNormalMap", props);
             uvSetSecondary = FindProperty("_UVSec", props);
-            lightmapType = FindProperty("_LightmapType", props, false);
-            specularAA = FindProperty("_EnableGeometricSpecularAA", props, true);
-            specularAAVariance = FindProperty("_SpecularAAScreenSpaceVariance", props);
-            specularAAThreshold = FindProperty("_SpecularAAThreshold", props);
         }
 
         public override void OnGUI(MaterialEditor materialEditor, MaterialProperty[] props)
@@ -166,63 +145,6 @@ namespace UnityEditor
                     m_MaterialEditor.ShaderProperty(highlights, Styles.highlightsText);
                 if (reflections != null)
                     m_MaterialEditor.ShaderProperty(reflections, Styles.reflectionsText);
-
-                if (lightmapType != null)
-                {
-                    m_MaterialEditor.ShaderProperty(lightmapType, Styles.lightmapTypeText);
-
-                    bool hasBakery = true;
-                    bool bakeryUsingMonoSH = false;
-                    try {
-                        // Conditionally retrieve info from Bakery assembly, using reflection. Reflection is always cursed, it's fine.
-                        Assembly bakeryAsm = Assembly.Load("BakeryEditorAssembly");
-                        Type RenderDirModeType = bakeryAsm.GetType("ftRenderLightmap+RenderDirMode");
-                        FieldInfo renderDirModeField = bakeryAsm.GetType("ftRenderLightmap").GetField("renderDirMode");
-                        object renderDirMode = renderDirModeField.GetValue(null);
-                        object monoshMode = Enum.Parse(RenderDirModeType, "MonoSH");
-
-                        bakeryUsingMonoSH = renderDirMode.Equals(monoshMode);
-                    } 
-                    catch (BadImageFormatException) {
-                        hasBakery = false;
-                    }
-                    catch (FileNotFoundException) {
-                        hasBakery = false;
-                    }
-                    // catch (Exception e) 
-                    // {
-                    //     Debug.LogError("Failed to get MonoSH mode from Bakery: " + e);
-                    // }
-
-                    if (GetLightmapType(material) == LightmapType.MonoSH ||
-                            GetLightmapType(material) == LightmapType.MonoSHNoSpecular)
-                    {
-                        if (!hasBakery) {
-                            EditorGUILayout.HelpBox(EditorGUIUtility.TrTextContent("MonoSH type mode selected, but Bakery does not appear to be installed."));
-                        } else if (!bakeryUsingMonoSH)
-                        {
-                            EditorGUILayout.HelpBox(EditorGUIUtility.TrTextContent("MonoSH type mode selected, but Bakery is not set to use MonoSH."));
-                        }
-                    } else {
-                        if (hasBakery && bakeryUsingMonoSH)
-                        {
-                            EditorGUILayout.HelpBox(EditorGUIUtility.TrTextContent("Default lightmap mode selected, but Bakery is set to use MonoSH."));
-                        }
-                    }
-                }
-
-                if (specularAA != null)
-                {
-                    m_MaterialEditor.ShaderProperty(specularAA, Styles.specularAAText);
-                    if((int)material.GetFloat("_EnableGeometricSpecularAA") > 0)
-                    {
-                        int indentation = 2; // align with labels of texture properties
-                        if (specularAAVariance != null)
-                            m_MaterialEditor.ShaderProperty(specularAAVariance, Styles.specularAAVarianceText, indentation);
-                        if (specularAAThreshold != null)
-                            m_MaterialEditor.ShaderProperty(specularAAThreshold, Styles.specularAAThresholdText, indentation);
-                    }
-                }
             }
             if (EditorGUI.EndChangeCheck())
             {
@@ -301,12 +223,6 @@ namespace UnityEditor
             ++indentation;
         }
 
-        static LightmapType GetLightmapType(Material material)
-        {
-            int ch = (int)material.GetFloat("_LightmapType");
-            return (LightmapType)(int)ch;
-        }
-
         static void SetMaterialKeywords(Material material)
         {
             // Note: keywords must be based on Material value not on MaterialProperty due to multi-edit & material animation
@@ -321,17 +237,6 @@ namespace UnityEditor
             MaterialEditor.FixupEmissiveFlag(material);
             bool shouldEmissionBeEnabled = (material.globalIlluminationFlags & MaterialGlobalIlluminationFlags.EmissiveIsBlack) == 0;
             SetKeyword(material, "_EMISSION", shouldEmissionBeEnabled);
-
-            if (material.HasProperty("_LightmapType"))
-            {
-                SetKeyword(material, "_MONOSH_SPECULAR", GetLightmapType(material) == LightmapType.MonoSH);
-                SetKeyword(material, "_MONOSH_NOSPECULAR", GetLightmapType(material) == LightmapType.MonoSHNoSpecular);
-            }
-
-            if (material.HasProperty("_EnableGeometricSpecularAA"))
-            {
-                SetKeyword(material, "_ENABLE_GEOMETRIC_SPECULAR_AA", material.GetFloat("_EnableGeometricSpecularAA") > 0);
-            }
         }
 
         static void MaterialChanged(Material material)

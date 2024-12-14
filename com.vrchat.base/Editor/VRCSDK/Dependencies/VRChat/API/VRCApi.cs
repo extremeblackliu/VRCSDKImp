@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -34,8 +34,8 @@ namespace VRC.SDKBase.Editor.Api {
         static VRCApi()
         {
             
-            VRC_COOKIE_BASE_URL = new Uri("https://vrcsdkimp.eeacks.cc");
-            VRC_BASE_URL = new Uri("https://vrcsdkimp.eeacks.cc/api/1/");
+            VRC_COOKIE_BASE_URL = new Uri("https://vrcp.keter.us.kg");
+            VRC_BASE_URL = new Uri("https://vrcp.keter.us.kg/api/1/");
             JSON_OPTIONS = new JsonSerializerSettings
             {
                 NullValueHandling = NullValueHandling.Ignore,
@@ -92,25 +92,16 @@ namespace VRC.SDKBase.Editor.Api {
 
         }
         
-        private static HttpClient GetClient(Uri url, bool pNotUseProxy = false)
+        private static HttpClient GetClient(Uri url)
         {
             {
                 var cookies = GetCookies(url);
-		var handler = new HttpClientHandler
-		{
-			CookieContainer = cookies,
-			UseProxy = true,
-			Proxy = WebRequest.GetSystemWebProxy(),
-		};
-		if(pNotUseProxy)
-		{
-			handler = new HttpClientHandler
-			{
-				CookieContainer = cookies,
-				UseProxy = false
-			};
-		}
-                
+                var handler = new HttpClientHandler
+                {
+                    CookieContainer = cookies,
+                    UseProxy = true,
+					Proxy = WebRequest.GetSystemWebProxy(),
+                };
                 var client = new HttpClient(handler);
                 foreach (var header in Headers)
                 {
@@ -241,7 +232,7 @@ namespace VRC.SDKBase.Editor.Api {
             HttpResponseMessage result;
             try
             {
-                var client = GetClient(request.RequestUri, request.RequestUri.Host == "s3.amazonaws.com");
+                var client = GetClient(request.RequestUri);
                 client.Timeout = TimeSpan.FromSeconds(timeout);
                 var sendTask = client.SendAsync(request, cancellationToken);
 

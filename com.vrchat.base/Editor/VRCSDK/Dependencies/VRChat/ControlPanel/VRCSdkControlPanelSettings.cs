@@ -57,34 +57,6 @@ public partial class VRCSdkControlPanel : EditorWindow
                 UnityEditor.EditorPrefs.SetBool("apiLoggingEnabled", enableLogging);
             }
         }
-
-        // DPID based mipmap generation
-        bool prevDpidMipmaps = VRCSettings.DpidMipmaps;
-        GUIContent dpidContent = new GUIContent("Override Kaiser mipmapping with Detail-Preserving Image Downscaling (BETA)", 
-                "Use a state of the art algorithm (DPID) for mipmap generation when Kaiser is selected. This can improve the quality of mipmaps.");
-        VRCSettings.DpidMipmaps = EditorGUILayout.ToggleLeft(dpidContent, VRCSettings.DpidMipmaps);
-
-        bool prevDpidConservative = VRCSettings.DpidConservative;
-        GUIContent dpidConservativeContent = new GUIContent("Use conservative settings for DPID mipmapping", 
-                "Use conservative settings for DPID mipmapping. This can avoid issues with over-emphasis of details.");
-        VRCSettings.DpidConservative = EditorGUILayout.ToggleLeft(dpidConservativeContent, VRCSettings.DpidConservative);
-        
-        // When DPID setting changed, mark all textures as dirty
-        if (VRCSettings.DpidMipmaps != prevDpidMipmaps || 
-                (VRCSettings.DpidMipmaps && VRCSettings.DpidConservative != prevDpidConservative))
-        {
-            VRC.Core.Logger.Log("DPID mipmaps setting changed, marking all textures as dirty");
-            string[] guids = AssetDatabase.FindAssets("t:Texture");
-            foreach (string guid in guids)
-            {
-                string path = AssetDatabase.GUIDToAssetPath(guid);
-                TextureImporter importer = AssetImporter.GetAtPath(path) as TextureImporter;
-                if (importer != null && importer.mipmapFilter == TextureImporterMipFilter.KaiserFilter)
-                {
-                    importer.SaveAndReimport();
-                }
-            }
-        }
         
         EditorGUILayout.EndVertical();
 

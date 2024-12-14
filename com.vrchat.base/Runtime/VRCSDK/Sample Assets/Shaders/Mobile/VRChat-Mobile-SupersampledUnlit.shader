@@ -63,7 +63,7 @@ Shader "VRChat/Mobile/Worlds/Supersampled UI"
             struct appdata_t
             {
                 float4 vertex   : POSITION;
-                fixed4 color    : COLOR;
+                float4 color    : COLOR;
                 float2 texcoord : TEXCOORD0;
                 UNITY_VERTEX_INPUT_INSTANCE_ID
             };
@@ -125,8 +125,8 @@ Shader "VRChat/Mobile/Worlds/Supersampled UI"
 
                 // calculate gradient manually, since we don't want them to come from centroid texcoords
                 float4 grad = float4(ddx(IN.texcoord.xy), ddy(IN.texcoord.xy));
-                const float bias_pow = 0.5f; // pow(2, -1.0f)
-                grad *= bias_pow;
+                const float bias = -1.0f;
+                grad *= pow(2, bias);
 
                 // supersampling
                 offsetUV.xy = IN.texcoordCentroid.xy + uvOffsets.x * dx + uvOffsets.y * dy;

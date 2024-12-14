@@ -19,11 +19,8 @@ Shader "VRChat/Mobile/Bumped Diffuse"
         LOD 250
 
         CGPROGRAM
-        #define _SPECULARHIGHLIGHTS_OFF
-        #define _GLOSSYREFLECTIONS_OFF
-        #include "VRChat.cginc"
         #pragma target 3.0
-        #pragma surface surf LambertVRC exclude_path:prepass exclude_path:deferred noforwardadd noshadow nodynlightmap nolppv noshadowmask
+        #pragma surface surf Lambert exclude_path:prepass exclude_path:deferred noforwardadd noshadow nodynlightmap nolppv noshadowmask
 
         UNITY_DECLARE_TEX2D(_MainTex);
         UNITY_DECLARE_TEX2D(_BumpMap);
@@ -31,10 +28,10 @@ Shader "VRChat/Mobile/Bumped Diffuse"
         struct Input
         {
             float2 uv_MainTex;
-            fixed4 color : COLOR;
+            float4 color : COLOR;
         };
 
-        void surf (Input IN, inout SurfaceOutputVRC o)
+        void surf (Input IN, inout SurfaceOutput o)
         {
             fixed4 c = UNITY_SAMPLE_TEX2D(_MainTex, IN.uv_MainTex);
             o.Albedo = c.rgb * IN.color;
