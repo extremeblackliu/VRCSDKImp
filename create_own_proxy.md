@@ -87,79 +87,9 @@ export default {
 
 # VRCSDK 修改
 
-接下来是修改SDK的部分，你需要使用 dnSpy 来修改 VRCSDK 的代码，这里就不再赘述如何下载安装。
+把项目的 `patcher.js` 移动到 `X:\YourProjectFolder\Packages\patcher.js`
 
-解压之后，在你解压到的目录下运行 dnSpy.exe
-
-此时你有一个空的窗口
-
-![](https://i0.hdslb.com/bfs/new_dyn/9f77a445e57dde803490abb3ba48f4ed182460046.png)
-
-确保你已经从 `Release` 中下载了打了补丁的SDK，解压到任意位置
-
-然后导航到 `.\com.vrchat.base\Runtime\VRCSDK\Plugins`
-
-在同目录下找到 `VRCCore-Editor.dll`
-
-直接把该文件拖拽到 dnSpy 的左侧小窗口处
-
-然后 dnSpy 会加载该文件
-
-加载完成之后先在下方的搜索框中筛选搜索条件
-
-选择最底下的 `Number/String` ，中文应该是 `数值/字符串`
-
-![](https://i0.hdslb.com/bfs/new_dyn/e272d0bbe70402032d7abdcb7021d5f8182460046.png)
-
-然后右边的筛选选择 `Selected Files` ， 中文应该是 `(仅)选中的文件`
-
-![](https://i0.hdslb.com/bfs/new_dyn/1819748746f30e98898e86ed086358af182460046.png)
-
-在左侧窗口单击 `VRCCore-Editor` 就可以开始搜索了
-
-![](https://i0.hdslb.com/bfs/new_dyn/5dafbb390de9b530d8a173f294c22a7a182460046.png)
-
-注意：在下文中所有你看到的 `keter.tech` 的域名都是老域名（图片是老图片），目前库中的域名是 `eeacks.cc` ，因此你要替换的是 `eeacks.cc` -> `你的域名.com` ，请在替换的时候注意到这一点。
-
-在下方搜索框中输入 `eeacks.cc`
-
-![](https://i0.hdslb.com/bfs/new_dyn/aaed8902edd229a6721686e89977cb15182460046.png)
-
-接着我们逐个修改，首先双击第一个，然后它会导航到目标代码处，接着右键，点击 `Edit IL Instructions`  中文：`编辑IL指令`
-
-![](https://i0.hdslb.com/bfs/new_dyn/2ad4cc6c8de91ed5fcd742c08ded0baf182460046.png)
-
-注意：替换的时候只需要替换域名，不要动别的东西
-
-例如这里替换之前：https://vrcsdkimp.eeacks.cc/api/1/
-
-替换之后理应是：https://你的域名/api/1/
-
-接着在搜索框双击下一条进行修改
-
-![](https://i0.hdslb.com/bfs/new_dyn/f5d64ce877028d5f8b3fbcb7199d2ce2182460046.png)
-
-这里有一个小细节，修改的时候右键的地方最好右键到字符串上，以便弹出修改窗口时位于前面的字符串是需要修改的域名
-
-注意：对于这种
-
-`public const string releaseApiUrl = "https://vrc-proxy.keter.tech/api/1/";`
-
-带有 `const` 的声明，编辑的方法有些不一样，
-
-![](https://i0.hdslb.com/bfs/new_dyn/191b6e7052dedd43930aaed24a300ee1182460046.png)
-
-然后修改再点OK就行了
-
-![](https://i0.hdslb.com/bfs/new_dyn/9cd5321f382542533444b40e7c5c06fe182460046.png)
-
-按照这种办法对其它地方如法炮制，然后就可以保存了
-
-![](https://i0.hdslb.com/bfs/new_dyn/466f20834a00b480ee41fcf0d26c367b182460046.png)
-
-不用动其它的直接点击OK就行了
-
-![](https://i0.hdslb.com/bfs/new_dyn/2b366f0c3e93ca019edaab1763987f03182460046.png)
+`node patcher.js` 运行即可，无额外依赖。
 
 然后你就可以把修改的SDK导入Unity了，只需要把Packages文件夹直接覆盖到项目根文件夹就可以了
 
