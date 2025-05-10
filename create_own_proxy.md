@@ -10,7 +10,6 @@
 
 - Cloudflare 账号。
 - 在自己的 Cloudflare 账号中有一个自己的域名，这是因为 worker.dev 被墙了，你必须要有一个自己的域名。
-- [dnSpy](https://github.com/dnSpyEx/dnSpy) 用于反编译，修改 VRCSDK 中的请求地址。
 
 没有cloudflare账号的我就不教怎么注册账号了，访问 https://dash.cloudflare.com 按照页面指引注册就可以。
 
